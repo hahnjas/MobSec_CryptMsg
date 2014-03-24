@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Das ist die Standardactivity von CaaSdroid</string>
+    <string name="app_name">CaaSdroid</string>
+    <string name="receiverNo">Nummer des Empfängers</string>
+    <string name="send">Nachricht senden</string>
+    <string name="emptyField">Deine Nachricht</string>
+    <string name="allMsg">Alle Nachrichten</string>
+    <string name="webServ">Registrierung</string>
+    <string name="chooseContact">Kontakte</string>
+    <string name="sent">Nachricht gesendet.</string>
+    <string name="secret">Dein Geheimnis</string>
+    <string name="menuToMain">Zurück zur Standardansicht.</string>
+    <string name="login">Login</string>
+    <string name="createAcc">Neuen Account erstellen</string>
+    <string name="pairing">Account erstellen/verwalten</string>
+    <string name="userName">Nutzername/eMail</string>
+    <string name="passWd">Ihr Passwort</string>
+    <string name="ownNo">Ihre Handynummer</string>
+    <string name="noNumber">Keine Nr unter diesem Kontakt</string>
+    <string name="noNumberSelected">Bitte Nummer eingeben</string>
+    <string name="allMsgheader">Empfangene Nachrichten: (verschlüsselt)</string>
+    <string name="succSecretSet">Geheimnis erfolgreich geändert.</string>
+    <string name="chgSecret">Geheimnis ändern/setzen</string>
+</resources>

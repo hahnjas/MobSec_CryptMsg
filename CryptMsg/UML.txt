@@ -1,0 +1,105 @@
+@startuml
+class CaaSdroidActivity {
+	
+	-SMSReceiver smsReceiver
+	+void onCreate(Bundle savedInstanceState)
+	#void onDestroy()
+	+boolean onCreateOptionsMenu(Menu menu)
+	+boolean onOptionsItemSelected(MenuItem item)
+	+void onActivityResult(int requestCode, int resultCode, Intent data)
+	+String getContactPhoneNumber(Context ctx, String id)
+}
+class Activity {
+}
+Activity <|-- CaaSdroidActivity
+
+class AesCtr {
+	+byte[] encrypt(byte[] plaintext, byte[] keyBytes, byte[] ivBytes)
+	+byte[] decrypt(byte[] ciphertext, byte[] keyBytes, byte[] ivBytes)
+	+byte[] getAESKey(byte[] keyRaw)
+}
+
+class AllMessagesActivity {
+
+	-ArrayList<String> smsList
+	#void onCreate(Bundle savedInstanceState)
+	+boolean onCreateOptionsMenu(Menu menu)
+	+boolean onOptionsItemSelected(MenuItem item)
+}
+class Activity {
+}
+Activity <|-- AllMessagesActivity
+
+
+class CaaSClient {
+	-String secret
+	+String encryptOutgoingMessage(CaaSSession session, String message)
+	+String decryptOutgoingMessage(CaaSSession session, String encryptedMessage)
+	+String encryptIncomingMessage(CaaSSession session, String message)
+	+String decryptIncomingMessage(CaaSSession session, String encryptedMessage)
+	+String generateHash(String recipient, String message)
+	+String getSecret()
+	+void setSecret(String secret)
+}
+
+
+class CaaSSession {
+	-HashMap<String,CaaSSession> allSessions
+	-String recipient
+	-byte[] currKey
+	-byte[] iv
+	+CaaSSession(String recipient, byte[] currKey, CaaSType currStatus, byte[] iv)
+	+void createNewKey()
+	+void createNewIv()
+	-byte[] generateRandomAESKey()
+	+CaaSSession getSession(String phoneNumber)
+}
+
+class DataBaseHelper {
+	-DataBaseHelper helper
+	
+	+void onCreate(SQLiteDatabase db)
+	+void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
+	+void addRcvdMsg(String phoneNo, String msg)
+	+void addSentMsg(String phoneNo, String msg)
+	+ArrayList<String> getAllMsgs()
+	-String cursorToString(Cursor cursor)
+	+DataBaseHelper getInstance()
+}
+abstract class SQLiteOpenHelper {
+}
+SQLiteOpenHelper <|-- DataBaseHelper
+
+class SMSReceiver {
+	
+	+void onReceive(Context context, Intent intent)
+	+String encrypt(Context context, String message)
+	+String decrypt(Context context, String message)
+}
+abstract class BroadcastReceiver {
+}
+BroadcastReceiver <|-- SMSReceiver
+
+class SmsTransfer {
+	+String GATEWAY_NUMBER
+	-String INDICATOR_LASTMSG
+	+void sendSMS(Context context, String recipient, String message)
+	+void requestUserInfo(String phoneNo)
+	+void receiveSms(Context context, String originator, String message)
+	-String completeBase64(String msg)
+	-String reduceBase64(String msg)
+}
+
+class WebServiceActivity {
+	+void onCreate(Bundle savedInstanceState)
+}
+class Activity {
+}
+Activity <|-- WebServiceActivity
+@enduml
+
+
+
+
+
+

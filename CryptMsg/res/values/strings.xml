@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">This is the main CaaSdroid activity!</string>
+    <string name="app_name">CryptMsg</string>
+    <string name="receiverNo">No. of recipient</string>
+    <string name="send">Send message</string>
+    <string name="emptyField">Your message</string>
+    <string name="allMsg">All Messages</string>
+    <string name="webServ">Registration</string>
+    <string name="chooseContact">Contacts</string>
+    <string name="sent">Message has been sent.</string>
+    <string name="secret">Enter your secret</string>
+    <string name="menuToMain">Back to main.</string>
+    <string name="login">Login</string>
+    <string name="pairing">create/manage account</string>
+    <string name="createAcc">Create new Account</string>
+    <string name="userName">Username/eMail</string>
+    <string name="passWd">Your Password</string>
+    <string name="ownNo">Your mobile number</string>
+    <string name="noNumber">No number for that contact</string>
+    <string name="noNumberSelected">Please specify Number</string>
+	<string name="allMsgheader">Received messages: (encrypted)</string>
+	<string name="succSecretSet">Secret successfully set!</string>
+	<string name="chgSecret">Change/Set Secret</string>
+	
+    
+
+</resources>
