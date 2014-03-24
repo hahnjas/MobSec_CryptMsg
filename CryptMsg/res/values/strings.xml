@@ -8,6 +8,7 @@
     <string name="emptyField">Your message</string>
     <string name="allMsg">All Messages</string>
     <string name="webServ">Registration</string>
+    <string name="decrypt">Decrypt a Message</string>
     <string name="chooseContact">Contacts</string>
     <string name="sent">Message has been sent.</string>
     <string name="secret">Enter your secret</string>

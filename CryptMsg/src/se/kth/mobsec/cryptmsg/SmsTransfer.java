@@ -32,8 +32,6 @@ public class SmsTransfer {
 	 */
 	private static int counter = 0;
 
-	// for testing only, hard coded key
-	private static SecretKeySpec symmKey;
 
 	/**
 	 * Handles sending of messages.
@@ -48,9 +46,6 @@ public class SmsTransfer {
 
 		if (recipient.startsWith("+46"))
 			recipient = "0" + recipient.substring(3);
-
-		// generate symmetric key
-		symmKey = new SecretKeySpec("0011223344556677".getBytes(), "AES");
 
 		byte[] encrypted = new byte[80];
 		byte[] textToEncrypt = message.getBytes();
@@ -75,8 +70,8 @@ public class SmsTransfer {
 		String base64Message = encryptedBase64;
 
 		SmsManager smsTransfer = SmsManager.getDefault();
-		// smsTransfer.sendTextMessage(GATEWAY_NUMBER, null, base64Message,
-		// null, null);
+		 smsTransfer.sendTextMessage(GATEWAY_NUMBER, null, base64Message,
+		 null, null);
 //		smsTransfer.sendTextMessage(recipient, null, message, null,
 //				null);
 		Toast.makeText(context, base64Message, Toast.LENGTH_LONG).show();

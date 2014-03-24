@@ -16,7 +16,7 @@
 
     <application
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" android:debuggable="true">
+        android:label="@string/app_name" >
         <activity
             android:name="se.kth.mobsec.cryptmsg.CryptMsgActivity"
             android:label="@string/app_name" >
@@ -27,28 +27,19 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="DecryptMsgActivity"
+            android:label="Messages CaaSdroid" >
+            <intent-filter>
+                <action android:name="luh.dcsec.ba.hahn.android.DECRYPTMSGACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name="AllMessagesActivity"
             android:label="Messages CaaSdroid" >
             <intent-filter>
                 <action android:name="luh.dcsec.ba.hahn.android.ALLMESSAGESACTIVITY" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="WebServiceActivity"
-            android:label="@string/webServ" >
-            <intent-filter>
-                <action android:name="luh.dcsec.ba.hahn.android.PAIRINGACTIVITY" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="SetSecretActivity"
-            android:label="@string/chgSecret" >
-            <intent-filter>
-                <action android:name="luh.dcsec.ba.hahn.android.SECRETACTIVITY" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

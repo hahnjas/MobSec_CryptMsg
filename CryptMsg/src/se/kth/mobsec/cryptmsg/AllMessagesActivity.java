@@ -93,10 +93,6 @@ public class AllMessagesActivity extends Activity {
 		case R.id.menu_tomain:
 			startActivity(new Intent("luh.dcsec.ba.hahn.android.MAINACTIVITY"));
 			return true;
-		case R.id.menu_binding:
-			startActivity(new Intent(
-					"luh.dcsec.ba.hahn.android.PAIRINGACTIVITY"));
-			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}

@@ -46,9 +46,9 @@ public class CryptMsgActivity extends Activity {
 		// registerReceiver(binSmsReceiver, new IntentFilter(
 		// "android.intent.action.DATA_SMS_RECEIVED"));
 		// register receiver for standard SMS
-		this.smsReceiver = new SMSReceiver();
-		registerReceiver(smsReceiver, new IntentFilter(
-				"android.provider.Telephony.SMS_RECEIVED"));
+//		this.smsReceiver = new SMSReceiver();
+//		registerReceiver(smsReceiver, new IntentFilter(
+//				"android.provider.Telephony.SMS_RECEIVED"));
 
 		setContentView(R.layout.main);
 
@@ -72,6 +72,8 @@ public class CryptMsgActivity extends Activity {
 				}
 
 				String secret = "secret"; //TODO retrieve secret from textfield
+				EditText secretField = (EditText) findViewById(R.id.editSecret);
+				secret = secretField.getText().toString();
 				SmsTransfer.sendSMS(getBaseContext(), noString, secret, text.getText()
 						.toString());
 
@@ -124,17 +126,9 @@ public class CryptMsgActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		switch (item.getItemId()) {
-		case R.id.menu_binding:
+		case R.id.menu_decrypt:
 			startActivity(new Intent(
-					"luh.dcsec.ba.hahn.android.PAIRINGACTIVITY"));
-			return true;
-		case R.id.menu_all:
-			startActivity(new Intent(
-					"luh.dcsec.ba.hahn.android.ALLMESSAGESACTIVITY"));
-			return true;
-		case R.id.changeSecret:
-			startActivity(new Intent(
-				"luh.dcsec.ba.hahn.android.SECRETACTIVITY"));
+					"luh.dcsec.ba.hahn.android.DECRYPTMSGACTIVITY"));
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

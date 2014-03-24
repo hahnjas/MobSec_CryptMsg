@@ -3,12 +3,16 @@ package se.kth.mobsec.cryptmsg;
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -18,60 +22,47 @@ public class AesCtr {
 	
 	/**
 	 * Encrypts a message using AES with a given key (as a byte array).
-	 * @param plaintext
-	 * @param keyBytes key as byte array
-	 * @param ivBytes initialization vector as byte array
 	 * 
-	 * @return
-	 * @throws NoSuchAlgorithmException
-	 * @throws NoSuchPaddingException
-	 * @throws InvalidKeyException
-	 * @throws InvalidAlgorithmParameterException
-	 * @throws IOException
-	 * @throws BadPaddingException 
-	 * @throws IllegalBlockSizeException 
 	 */
 	public static byte[] encrypt(byte[] plaintext, byte[] keyBytes, byte[] ivBytes) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException, IOException, IllegalBlockSizeException, BadPaddingException{
+		
+		keyBytes = padKey(keyBytes);
 		
 		SecretKeySpec key = new SecretKeySpec(keyBytes, "AES");
 	    IvParameterSpec ivSpec = new IvParameterSpec(ivBytes);
 //	    Cipher cipher = Cipher.getInstance("AES/CTR/NoPadding");
-	    Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-
+	    Cipher cipher = getCipher();
 
 	    Log.i("AesCtr.encrrypt()", "die nachricht: " + new String(plaintext));
 	    // encryption pass
 	    cipher.init(Cipher.ENCRYPT_MODE, key, ivSpec);
+	    
 	    return cipher.doFinal(plaintext);
-//	    ByteArrayInputStream bIn = new ByteArrayInputStream(plaintext);
-//	    CipherInputStream cIn = new CipherInputStream(bIn, cipher);
-//	    ByteArrayOutputStream bOut = new ByteArrayOutputStream();
-//	    int ch;
-//	    while ((ch = cIn.read()) >= 0) bOut.write(ch);
-//	    bOut.close();
-//	    return bOut.toByteArray();
 	}
 	
+	private static byte[] padKey(byte[] key) throws NoSuchAlgorithmException {
+		MessageDigest sha = MessageDigest.getInstance("SHA-1");
+		key = sha.digest(key);
+		key = Arrays.copyOf(key, 16); // use only first 128 bit
+		return key;
+	}
+
+	private static Cipher getCipher() throws NoSuchAlgorithmException, NoSuchPaddingException {
+		return Cipher.getInstance("AES");
+	}
+
 	/**
 	 * Decrypts a message using an AESKey given as a byte array.
-	 * @param plaintext
-	 * @param keyBytes key as byte array
-	 * @param ivBytes initialization vector as byte array
-	 * @return
-	 * @throws NoSuchAlgorithmException
-	 * @throws NoSuchPaddingException
-	 * @throws InvalidKeyException
-	 * @throws InvalidAlgorithmParameterException
-	 * @throws IOException
-	 * @throws BadPaddingException 
-	 * @throws IllegalBlockSizeException 
+	 * 
 	 */
 	public static byte[] decrypt(byte[] ciphertext, byte[] keyBytes, byte[] ivBytes) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException, IOException, IllegalBlockSizeException, BadPaddingException{
+		
+		keyBytes = padKey(keyBytes);
 		
 		SecretKeySpec key = new SecretKeySpec(keyBytes, "AES");
 		//SecretKeySpec key = new SecretKeySpec(keyBytes, "AES");
 	    IvParameterSpec ivSpec = new IvParameterSpec(ivBytes);
-	    Cipher cipher = Cipher.getInstance("AES/CTR/NoPadding");
+	    Cipher cipher = getCipher();
 	    
 	    // decryption pass
 	    cipher.init(Cipher.DECRYPT_MODE, key, ivSpec);

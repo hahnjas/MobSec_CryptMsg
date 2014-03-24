@@ -4,31 +4,6 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-
-        <EditText
-            android:id="@+id/editText1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/btnChooseContact"
-            android:textSize="18sp"
-            android:hint="@string/receiverNo"
-            android:inputType="phone" >
-
-            <requestFocus />
-        </EditText>
-
-        <Button
-            android:id="@+id/btnChooseContact"
-            android:layout_width="80dp"
-            android:textSize="14sp"
-            android:layout_height="wrap_content"
-            android:text="@string/chooseContact" />
-    </RelativeLayout>
-
     <EditText
         android:id="@+id/editSecret"
         android:layout_width="fill_parent"
@@ -51,11 +26,11 @@
         android:inputType="textMultiLine" />
 
     <Button
-        android:id="@+id/btnSendSMS"
+        android:id="@+id/btnDecrypt"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:text="@string/send" >
+        android:text="@string/decrypt" >
     </Button>
 
 </LinearLayout>

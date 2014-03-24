@@ -1,14 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<?xml version="1.0" encoding="utf-8"?><menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/menu_tomain"          
           android:title="@string/menuToMain" />
           
-     <item android:id="@+id/menu_binding"         
-          android:title="@string/pairing" />
-     
-         <item android:id="@+id/changeSecret"         
-          android:title="@string/chgSecret" />
+
                
-    <item android:id="@+id/menu_all"         
-          android:title="@string/allMsg" />
+    <item android:id="@+id/menu_decrypt"         
+          android:title="@string/decrypt" />
 </menu>
