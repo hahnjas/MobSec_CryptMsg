@@ -6,7 +6,6 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,16 +28,12 @@ public class CryptMsgActivity extends Activity {
 	Button btnReg;
 
 	final int REQ_CODE = 1;
-	private BinarySMSReceiver binSmsReceiver;
-	private SMSReceiver smsReceiver;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// SmsTransfer transfer = new SmsTransfer();
 
-		
-		DataBaseHelper dbHelper = new DataBaseHelper(getBaseContext());
 		
 		super.onCreate(savedInstanceState);
 		// register Receiver for binary SMS
@@ -74,14 +69,16 @@ public class CryptMsgActivity extends Activity {
 				String secret = "secret"; //TODO retrieve secret from textfield
 				EditText secretField = (EditText) findViewById(R.id.editSecret);
 				secret = secretField.getText().toString();
-				SmsTransfer.sendSMS(getBaseContext(), noString, secret, text.getText()
+				String encodedMsg = SmsTransfer.sendSMS(getBaseContext(), noString, secret, text.getText()
 						.toString());
 
 				phoneNo.setText("");
 				// text.setText("");
 
-				Toast.makeText(getBaseContext(), "@string/sent",
+				Toast.makeText(getBaseContext(), "@string/sent" + encodedMsg,
 						Toast.LENGTH_SHORT);
+				
+				text.setText(encodedMsg);
 
 			}
 		});
@@ -104,8 +101,6 @@ public class CryptMsgActivity extends Activity {
 	 */
 	@Override
 	protected void onDestroy() {
-		//unregisterReceiver(binSmsReceiver);
-		unregisterReceiver(smsReceiver);
 		super.onDestroy();
 	}
 

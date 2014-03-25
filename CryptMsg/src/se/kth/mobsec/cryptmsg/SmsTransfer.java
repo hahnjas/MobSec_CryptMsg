@@ -23,23 +23,14 @@ import android.widget.Toast;
  */
 public class SmsTransfer {
 
-	public static final String GATEWAY_NUMBER = "01786785562";
-
-	private static final String INDICATOR_LASTMSG = "A";
-
-	/**
-	 * Counter used to avoid duplicate messages
-	 */
-	private static int counter = 0;
-
-
 	/**
 	 * Handles sending of messages.
 	 * 
 	 * @param phoneNumber
 	 * @param message
 	 */
-	public static void sendSMS(Context context, String recipient,String secret, String message) {
+	public static String sendSMS(Context context, String recipient,
+			String secret, String message) {
 
 		if (recipient.startsWith("46"))
 			recipient = recipient.replaceFirst("46", "0");
@@ -47,80 +38,29 @@ public class SmsTransfer {
 		if (recipient.startsWith("+46"))
 			recipient = "0" + recipient.substring(3);
 
-		byte[] encrypted = new byte[80];
-		byte[] textToEncrypt = message.getBytes();
-
-
 		// encrypt message
 		String encryptedBase64 = "";
 		try {
-			encryptedBase64 = reduceBase64(se.kth.mobsec.cryptmsg.CryptoClient
-					.encryptOutgoingMessage(secret, message));
+			encryptedBase64 = CryptoClient
+					.encryptOutgoingMessage(secret, message);
 			Toast.makeText(context, "msg: " + encryptedBase64,
 					Toast.LENGTH_SHORT).show();
 			// Toast.makeText(context,"encrypted: " + encryptedBase64,
-			// Toast.LENGTH_LONG * 2).show();
 
-		} catch (Exception e){
-			//TODO handle this
+		} catch (Exception e) {
+			// TODO handle this
 		}
-
 
 		// add authentication hash and phone number of recipient
 		String base64Message = encryptedBase64;
 
 		SmsManager smsTransfer = SmsManager.getDefault();
-		 smsTransfer.sendTextMessage(GATEWAY_NUMBER, null, base64Message,
-		 null, null);
-//		smsTransfer.sendTextMessage(recipient, null, message, null,
-//				null);
-		Toast.makeText(context, base64Message, Toast.LENGTH_LONG).show();
-
-	}
-
-	/**
-	 * Asks the CaaS server, whether a phone number is registered as a CaaS user
-	 * 
-	 * @param phoneNo
-	 */
-	public static void requestUserInfo(String phoneNo) {
-		SmsManager smsTransfer = SmsManager.getDefault();
-		smsTransfer.sendTextMessage(GATEWAY_NUMBER, null, "isUser-" + phoneNo,
-				null, null);
-	}
-
-	/**
-	 * Adds "=" to the end of a Base64 String to make its length a multiple of
-	 * 4;
-	 * 
-	 * @param msg
-	 * @return
-	 */
-	private static String completeBase64(String msg) {
-		msg = msg.trim();
-		while (msg.length() % 4 != 0)
-			msg += "=";
-		return msg;
-	}
-
-	/**
-	 * Removes multiple "="s at the end of a Bas64 encoded String and always
-	 * puts at least one to at the end. This is needed to avoid problems when
-	 * splitting up messages usgin the "=" sign.
-	 * 
-	 * @param msg
-	 * @return
-	 */
-	private static String reduceBase64(String msg) {
-		msg = msg.replaceAll("==", "");
-		msg = msg.replaceAll("=", "");
-
-		return msg.trim() + "=";
-	}
-
-	public static void receiveSms(Context context, String originator,
-			String message) {
-		// TODO Auto-generated method stub
+		// send off the message
+		 smsTransfer.sendTextMessage(recipient, null, message, null,
+		 null);
 		
+		return base64Message;
+
 	}
+
 }

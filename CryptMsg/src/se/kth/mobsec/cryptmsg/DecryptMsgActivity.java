@@ -4,57 +4,43 @@ import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 public class DecryptMsgActivity extends Activity {
 
-	Button btnSendSMS;
+	Button btnDecryptSMS;
 	Button btnAllSMS;
 	Button btnContacts;
 	Button btnReg;
 
 	final int REQ_CODE = 1;
-	private BinarySMSReceiver binSmsReceiver;
-	private SMSReceiver smsReceiver;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		// SmsTransfer transfer = new SmsTransfer();
 
-		
-		DataBaseHelper dbHelper = new DataBaseHelper(getBaseContext());
 		
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.decrypt);
 
 		// add functionality to send button
-		btnSendSMS = (Button) findViewById(R.id.btnDecrypt);
-		btnSendSMS.setOnClickListener(new View.OnClickListener() {
+		btnDecryptSMS = (Button) findViewById(R.id.btnDecrypt);
+		btnDecryptSMS.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				/*
@@ -68,6 +54,11 @@ public class DecryptMsgActivity extends Activity {
 				String encryptedMessage = text.getText().toString();
 				try {
 					String plainMsg = CryptoClient.decryptIncomingMessage(secret, encryptedMessage);
+					Toast.makeText(getBaseContext(), "@string/decryptedMsg" + plainMsg,
+							Toast.LENGTH_SHORT);
+					secretField.setEnabled(false);
+					btnDecryptSMS.setEnabled(false);
+					text.setText(plainMsg);
 				} catch (InvalidKeyException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -105,8 +96,6 @@ public class DecryptMsgActivity extends Activity {
 	 */
 	@Override
 	protected void onDestroy() {
-		//unregisterReceiver(binSmsReceiver);
-		unregisterReceiver(smsReceiver);
 		super.onDestroy();
 	}
 

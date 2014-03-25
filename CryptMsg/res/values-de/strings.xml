@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Das ist die Standardactivity von CaaSdroid</string>
+    <string name="hello">Das ist die Standardactivity von CryptMsg</string>
     <string name="app_name">CaaSdroid</string>
     <string name="receiverNo">Nummer des Empfängers</string>
     <string name="send">Nachricht senden</string>
     <string name="emptyField">Deine Nachricht</string>
     <string name="allMsg">Alle Nachrichten</string>
     <string name="webServ">Registrierung</string>
+    <string name="decrypt">Nachricht entschlüsseln</string>
+    <string name="decryptedMsg">Deine entschlüsselte Nachricht:</string>
     <string name="chooseContact">Kontakte</string>
     <string name="sent">Nachricht gesendet.</string>
     <string name="secret">Dein Geheimnis</string>
