@@ -56,7 +56,7 @@ public class SmsTransfer {
 
 		SmsManager smsTransfer = SmsManager.getDefault();
 		// send off the message
-		 smsTransfer.sendTextMessage(recipient, null, message, null,
+		 smsTransfer.sendTextMessage(recipient, null, encryptedBase64, null,
 		 null);
 		
 		return base64Message;
