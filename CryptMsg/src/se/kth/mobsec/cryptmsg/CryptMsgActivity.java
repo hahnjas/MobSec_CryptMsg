@@ -32,18 +32,9 @@ public class CryptMsgActivity extends Activity {
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		// SmsTransfer transfer = new SmsTransfer();
 
 		
 		super.onCreate(savedInstanceState);
-		// register Receiver for binary SMS
-		// this.binSmsReceiver = new BinarySMSReceiver();
-		// registerReceiver(binSmsReceiver, new IntentFilter(
-		// "android.intent.action.DATA_SMS_RECEIVED"));
-		// register receiver for standard SMS
-//		this.smsReceiver = new SMSReceiver();
-//		registerReceiver(smsReceiver, new IntentFilter(
-//				"android.provider.Telephony.SMS_RECEIVED"));
 
 		setContentView(R.layout.main);
 
@@ -78,7 +69,7 @@ public class CryptMsgActivity extends Activity {
 				Toast.makeText(getBaseContext(), "@string/sent" + encodedMsg,
 						Toast.LENGTH_SHORT);
 				
-				text.setText(encodedMsg);
+//				text.setText(encodedMsg);
 
 			}
 		});
@@ -130,31 +121,6 @@ public class CryptMsgActivity extends Activity {
 		}
 	}
 
-	/**
-	 * Use contact information received via the intent to get the phoneNumber.
-	 */
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-		switch (requestCode) {
-		case REQ_CODE:
-
-			final EditText phoneInput = (EditText) findViewById(R.id.editText1);
-			Cursor cursor = null;
-			String phoneNumber = "";
-			List<String> allNumbers = new ArrayList<String>();
-			int phoneIdx = 0;
-			Uri result = data.getData();
-			String id = result.getLastPathSegment();
-			phoneInput
-					.setText(this.getContactPhoneNumber(getBaseContext(), id));
-
-			break;
-		}
-		{
-			// activity result error actions
-		}
-	}
 
 	/**
 	 * Retrieves the Phone Number of a Contact
